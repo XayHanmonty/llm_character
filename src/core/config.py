@@ -1,6 +1,11 @@
 from pathlib import Path
+from dotenv import load_dotenv
+import os
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+# Load variables from .env into environment
+load_dotenv()
 
 ROOT_DIR = str(Path(__file__).parent.parent.parent)
 
@@ -9,7 +14,7 @@ class AppSettings(BaseSettings):
 
     # MongoDB configs
     MONGO_DATABASE_HOST: str = (
-        "mongodb+srv://hanmontybank:hanmontybank@llmcharacter.zelexox.mongodb.net/?retryWrites=true&w=majority&appName=llmCharacter"
+       os.getenv("MONGODB_URL")
     )
     MONGO_DATABASE_NAME: str = "llm_character"
 
