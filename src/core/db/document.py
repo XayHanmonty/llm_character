@@ -5,7 +5,7 @@ from pydantic import UUID4, BaseModel, ConfigDict, Field
 from pymongo import errors
 
 import core.logger_utils as logger_utils
-from core.db.mongo import connection
+from core.db.mongodb import connection
 from core.errors import ImproperlyConfigured
 
 _database = connection.get_database("twin")
