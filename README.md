@@ -1,102 +1,40 @@
-# llm_character
+# LLM Character Twin
 
-A project for creating and managing LLM-based characters.
+This project is designed to create a digital twin of a person's online presence by crawling and processing data from various sources like GitHub, Medium, and other social platforms. The collected data is then used to build a Retrieval-Augmented Generation (RAG) system, allowing users to interact with a character that mirrors the person's knowledge and communication style.
 
-## Setup and Installation
+## Features
+
+- **Data Crawling**: Modular crawlers for different platforms (starting with GitHub).
+- **MongoDB Integration**: Stores crawled data in a MongoDB database.
+- **Robust Testing**: Unit tests written with `pytest` and `pytest-mock`.
+- **Modern Python Tooling**: Uses `poetry` for dependency management and a `src` layout.
+
+## Getting Started
 
 ### Prerequisites
 
-- Python 3.12 (specifically versions >=3.12,<3.13)
-- [Poetry](https://python-poetry.org/) for dependency management
+- Python 3.12+
+- [Poetry](https://python-poetry.org/docs/#installation) for dependency management.
 
-### Installing Dependencies
+### Installation
 
-This project uses Poetry for dependency management. Follow these steps to set up your development environment:
+1.  **Clone the repository:**
+    ```bash
+    git clone <repository-url>
+    cd llm_character
+    ```
 
-1. **Install Poetry** (if not already installed):
+2.  **Install dependencies using Poetry:**
+    ```bash
+    poetry install
+    ```
 
-   ```bash
-   curl -sSL https://install.python-poetry.org | python3 -
-   ```
+### Configuration
 
-2. **Clone the repository**:
+This project uses a `.env` file to manage environment variables and secrets. 
 
-   ```bash
-   git clone https://github.com/yourusername/llm_character.git
-   cd llm_character
-   ```
-
-3. **Set Python version** (ensure you have Python 3.12 installed):
-
-   ```bash
-   poetry env use /path/to/python3.12
-   ```
-
-   For example with Homebrew on macOS:
-   ```bash
-   poetry env use /opt/homebrew/bin/python3.12
-   ```
-
-4. **Install dependencies**:
-
-   ```bash
-   poetry install
-   ```
-
-5. **Activate the virtual environment**:
-
-   ```bash
-   poetry shell
-   ```
-
-### Current Dependencies
-
-The project uses the following main dependencies:
-
-#### Core Libraries
-- **Python**: 3.12 (>=3.12,<3.13)
-- **pydantic**: Data validation and settings management
-- **pydantic-settings**: Settings management for pydantic
-
-#### Data Processing & Machine Learning
-- **numpy**: Numerical computing
-- **pandas**: Data manipulation and analysis
-- **scikit-learn**: Machine learning algorithms
-- **datasets**: Hugging Face datasets library
-- **unstructured**: Document parsing and processing
-
-#### AI & LLM Integration
-- **langchain**: Framework for LLM applications
-- **langchain-openai**: OpenAI integration for LangChain
-- **langchain-community**: Community extensions for LangChain
-- **litellm**: LLM API abstraction
-- **sentence-transformers**: Sentence embeddings
-- **instructorembedding**: Instruction-based embeddings
-- **huggingface-hub**: Hugging Face model hub integration
-
-#### Vector Database & Storage
-- **qdrant-client**: Vector database client
-- **pymongo**: MongoDB client
-
-#### Web & UI
-- **gradio**: Web UI for ML models
-- **selenium**: Web browser automation
-- **html2text**: HTML to text conversion
-
-#### AWS Integration
-- **aws-lambda-powertools**: AWS Lambda utilities
-- **sagemaker**: Amazon SageMaker SDK
-
-#### Messaging & Communication
-- **pika**: RabbitMQ client
-
-#### Utilities & Development
-- **structlog**: Structured logging
-- **rich**: Rich text and formatting in terminal
-- **ruff**: Python linter
-- **gdown**: Google Drive downloader
-- **comet-ml**: ML experiment tracking
-- **opik**: Utility library
+1. Create a `.env` file in the root of the project.
+2. Add the necessary configuration variables for the services you intend to use (e.g., `GITHUB_TOKEN`, `MONGO_URI`).
 
 ## Running Tests
 
@@ -105,6 +43,12 @@ This project uses `pytest` for testing. To run the test suite, execute the follo
 ```bash
 poetry run pytest
 ```
+
+This will discover and run all tests located in the `tests/` directory.
+
+## Dependencies
+
+This project uses Poetry for dependency management. 
 
 ### Adding New Dependencies
 
@@ -120,17 +64,28 @@ For development dependencies:
 poetry add --group dev package-name
 ```
 
-## Project Structure
+### Key Dependencies
 
-```
-.
-├── src/
-│   └── data_crawling/
-│       └── crawlers/
-├── pyproject.toml    # Project configuration and dependencies
-├── poetry.lock      # Locked dependencies
-└── README.md        # This file
-```
+<details>
+<summary>Click to view key dependencies</summary>
+
+#### Core Libraries
+- **Python**: 3.12
+- **pydantic**: Data validation and settings management
+
+#### AI & LLM Integration
+- **langchain**: Framework for LLM applications
+- **sentence-transformers**: Sentence embeddings
+
+#### Data Storage
+- **qdrant-client**: Vector database client
+- **pymongo**: MongoDB client
+
+#### Web & UI
+- **gradio**: Web UI for ML models
+
+</details>
+
 
 ## License
 

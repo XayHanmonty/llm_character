@@ -38,5 +38,8 @@ class MongoDatabaseConnector:
             MongoDatabaseConnector._instance = None
             MongoDatabaseConnector.client = None
 
-
 connection = MongoDatabaseConnector()
+
+def get_database_connection():
+    """Returns a singleton instance of MongoDatabaseConnector."""
+    return connection

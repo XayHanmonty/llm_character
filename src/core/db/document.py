@@ -5,15 +5,17 @@ from pydantic import UUID4, BaseModel, ConfigDict, Field
 from pymongo import errors
 
 import core.logger_utils as logger_utils
-from core.db.mongodb import connection
+from core.db.mongodb import get_database_connection
 from core.errors import ImproperlyConfigured
 
-_database = connection.get_database("twin")
+
+def get_database():
+    return get_database_connection().get_database("twin")
+
 
 logger = logger_utils.get_logger(__name__)
 
-# Foundational Framework for interacting with MongoDB
-# Define the schema for each data types
+
 class BaseDocument(BaseModel):
     id: UUID4 = Field(default_factory=uuid.uuid4)
 
@@ -43,7 +45,7 @@ class BaseDocument(BaseModel):
         return parsed
 
     def save(self, **kwargs):
-        collection = _database[self._get_collection_name()]
+        collection = get_database()[self._get_collection_name()]
 
         try:
             result = collection.insert_one(self.to_mongo(**kwargs))
@@ -55,7 +57,7 @@ class BaseDocument(BaseModel):
 
     @classmethod
     def get_or_create(cls, **filter_options) -> Optional[str]:
-        collection = _database[cls._get_collection_name()]
+        collection = get_database()[cls._get_collection_name()]
         try:
             instance = collection.find_one(filter_options)
             if instance:
@@ -70,7 +72,7 @@ class BaseDocument(BaseModel):
 
     @classmethod
     def find(cls, **filter_options):
-        collection = _database[cls._get_collection_name()]
+        collection = get_database()[cls._get_collection_name()]
         try:
             instance = collection.find_one(filter_options)
             if instance:
@@ -84,7 +86,7 @@ class BaseDocument(BaseModel):
 
     @classmethod
     def bulk_insert(cls, documents: List, **kwargs) -> Optional[List[str]]:
-        collection = _database[cls._get_collection_name()]
+        collection = get_database()[cls._get_collection_name()]
         try:
             result = collection.insert_many(
                 [doc.to_mongo(**kwargs) for doc in documents]
